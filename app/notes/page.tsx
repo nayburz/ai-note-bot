@@ -1,7 +1,17 @@
-type Props = {};
+import prisma from "@/lib/db/prisma";
+import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 
-const NotesPage = (props: Props) => {
-  return <div>Here will be your notes</div>;
+export const metadata: Metadata = {
+  title: "AI Storyteller - Notes",
 };
 
-export default NotesPage;
+export default async function NotesPage() {
+  const { userId } = auth();
+
+  if (!userId) throw Error("user undefined");
+
+  const allNotes = await prisma.note.findMany({ where: { userId } });
+
+  return <div>{JSON.stringify(allNotes)}</div>;
+}
