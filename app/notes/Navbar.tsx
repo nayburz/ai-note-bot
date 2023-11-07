@@ -1,6 +1,7 @@
 "use client";
 
-import AddNoteDialog from "@/components/AddNoteDialog";
+import AddEditNoteDialog from "@/components/AddEditNoteDialog";
+import ThemeToggleButton from "@/components/ThemeToggleButton";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
@@ -9,7 +10,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
-  const [showAddNoteDialog, setshowAddNoteDialog] = useState(false);
+  const [showAddEditNoteDialog, setshowAddEditNoteDialog] = useState(false);
   return (
     <>
       <div className="p-4 shadow">
@@ -25,14 +26,18 @@ export default function Navbar() {
                 elements: { avatarBox: { width: "2.5rem", height: "2.5rem" } },
               }}
             />
-            <Button onClick={() => setshowAddNoteDialog(true)}>
+            <ThemeToggleButton />
+            <Button onClick={() => setshowAddEditNoteDialog(true)}>
               <Plus size={20} className="mr-2" />
               Add Note
             </Button>
           </div>
         </div>
       </div>
-      <AddNoteDialog open={showAddNoteDialog} setOpen={setshowAddNoteDialog} />
+      <AddEditNoteDialog
+        open={showAddEditNoteDialog}
+        setOpen={setshowAddEditNoteDialog}
+      />
     </>
   );
 }
